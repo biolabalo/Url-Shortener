@@ -16,7 +16,7 @@ const Row: React.FC<RowProps> = ({ value, customColor }) => (
   <div
     className={`
   flex-1 py-2 px-4 text-center
-  text-[14px]  ${customColor ? "text-[#101828] font-medium" : "text-[#667085] font-normal" } 
+  text-[14px]  ${customColor ? "text-[#101828] font-medium" : "text-[#667085] font-normal"} 
   `}
   >
     {value}
@@ -31,7 +31,7 @@ const Thead: React.FC<RowProps> = ({ value }) => (
 
 const data: RowData[] = Array(100).fill({
   name: "John Doe",
-  description: "Lorem Ipsum",
+  description: "Lorem",
   shortenedURL: "https://example.com",
 });
 
@@ -60,7 +60,7 @@ const URLTable: React.FC = () => {
         </div>
         {getCurrentPageData().map((row, index) => (
           <div key={index} className="flex border-t py-2">
-            <Row value={row.name} customColor='p' />
+            <Row value={row.name} customColor="p" />
             <Row value={row.description} />
             <div className="flex-1 py-2 px-4 text-center">
               <a
