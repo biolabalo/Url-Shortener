@@ -51,8 +51,8 @@ const URLTable: React.FC = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="min-w-full bg-white url-table">
-        <div className="flex bg-gray-200">
+      <div className="min-w-full bg-white url-table rounded-xl">
+        <div className="flex bg-gray-200 py-2 rounded-t-xl">
           <Thead value="Name" />
           <Thead value="Description" />
           <Thead value="Shortened URL" />
