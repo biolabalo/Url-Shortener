@@ -1,16 +1,14 @@
 import {
   Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
 } from "@headlessui/react";
 import {
-  Bars3Icon,
-  XMarkIcon,
   MagnifyingGlassIcon,
   ArrowRightStartOnRectangleIcon,
-  LinkIcon,
   BellIcon,
 } from "@heroicons/react/24/outline";
+import UrlShortener from '../../components/Dashboard'
+import  URLTable from '../../components/Dashboard/table'
+import React, { useState } from "react";
 
 const user = {
   name: "Balogun Akeem",
@@ -18,7 +16,6 @@ const user = {
   imageUrl:
     "https://lh3.googleusercontent.com/a/ACg8ocJf1Fy4wWPZXirbNTH9dbLlXPod4RnXUIxRgAQJQLG9cimN6e5a=s83-c-mo",
 };
-
 
 export default function Dashboard() {
   return (
@@ -80,12 +77,15 @@ export default function Dashboard() {
           )}
         </Disclosure>
 
-        <main>
+        <main className="bg-white">
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            {/* Your content */}
+            <UrlShortener />
+            <br/>
+            < URLTable/>
           </div>
         </main>
       </div>
     </>
   );
 }
+

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { LoginResponse } from './types';
 
-
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3333', // Replace with your API base URL
   headers: {
