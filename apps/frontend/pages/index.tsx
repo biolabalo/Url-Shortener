@@ -3,6 +3,7 @@ import AuthForm from "../components/AuthForm";
 import { login, signUp } from "../services";
 import { toast } from "react-toastify";
 import { useRouter } from 'next/router';
+import  axiosInstance  from '../services'
 
 
 export default function Home() {
@@ -16,9 +17,10 @@ export default function Home() {
       const response = isSignUp ? await signUp(email, password) :  await login(email, password);
       const token = response?.token;
       if (token) {
-        localStorage.setItem('token', token); // Save the token to local storage
+        localStorage.setItem('token', token); 
+        axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set default headers for future requests
         toast.success(isSignUp ? 'Sign up successful' : 'Login Successful');
-        router.push('/dashboard'); // Redirect to /dashboard
+       await router.push('/dashboard'); 
       }
       setIsLoading(false)
     } catch (err) {
