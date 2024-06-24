@@ -61,3 +61,18 @@ Your task is to create a full stack URL shortener similar to bitly.com using Rea
 ```bash
 git clone https://github.com/biolabalo/Url-Shortener.git
 cd url-shortener
+
+2. Setup your env file using the .env.example file:
+
+```bash
+TZ=UTC
+PORT=3333
+HOST=localhost
+LOG_LEVEL=info
+APP_KEY=MT9c121iTQhYlK4p6G3cD2MF-oB5moE0
+NODE_ENV=development
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=
+DB_DATABASE=
