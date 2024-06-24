@@ -7,12 +7,11 @@ export const logout = () => {
 };
 
 const axiosInstance = axios.create({
-  baseURL: 'https://url-shortener-959j.onrender.com', // https://url-shortener-959j.onrender.com
+  baseURL: 'http://localhost:3333', // https://url-shortener-959j.onrender.com
   headers: {
     'Content-Type': 'application/json',
   },
 });
-
 
 axiosInstance.interceptors.request.use(
   (config) => {
