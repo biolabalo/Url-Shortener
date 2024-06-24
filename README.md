@@ -4,9 +4,7 @@
 
 ### Instructions
 
-Your task is to create a full stack URL shortener similar to bitly.com using Reactjs/Nextjs (TypeScript) to replicate the provided UI mock-up. You are expected to implement the UI components, handle user interactions, and ensure responsiveness. The backend should be implemented using AdonisJs. Stock images may be used for any pictures/logos in the design.
-
-### Mock-up: Frontend
+Task is to create a full stack URL shortener similar to bitly.com using Reactjs/Nextjs (TypeScript) to replicate the provided UI mock-up. The backend should be implemented using AdonisJs.
 
 ## Requirements
 
@@ -34,9 +32,10 @@ Your task is to create a full stack URL shortener similar to bitly.com using Rea
 - Monorepo setup using Turbo Repo
 - Frontend stack: Next.js, TypeScript, Tailwind CSS, Axios
 - Backend stack: AdonisJs, PostgreSQL
-- Frontend deployed to Vercel: [Click Here](#)
+- Frontend deployed to Vercel: [Click Here](https://url-shortener-frontend-tawny.vercel.app/dashboard)
 - Backend deployed to Render.com: [Click Here](https://url-shortener-959j.onrender.com)
 - Postgres deployed to superbase 
+
 ### Features
 
 - User signup/login
