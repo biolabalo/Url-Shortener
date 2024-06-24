@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { LoginResponse, UrlResponse } from './types';
-import { toast } from 'react-toastify';
-
 
 export const logout = () => {
   localStorage.removeItem('token');
@@ -14,7 +12,6 @@ const axiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-
 
 
 axiosInstance.interceptors.request.use(
