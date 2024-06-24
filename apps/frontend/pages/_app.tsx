@@ -11,12 +11,10 @@ export default function App({ Component, pageProps }: AppProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    setIsAuthenticated(!!token); 
-  }, []);
+
 
   useEffect(() => {
+    const isAuthenticated = localStorage.getItem('token');
     if (!isAuthenticated) {
       if(router.pathname !== '/'){
         router.push('/');
@@ -27,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
         router.push('/dashboard');
       }
     }
-  }, [isAuthenticated, router.pathname]);
+  }, [router.pathname]);
 
   return (
     <>
