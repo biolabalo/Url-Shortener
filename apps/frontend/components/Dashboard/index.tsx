@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { shortenURLs } from "../../services";
 
 interface InputFieldProps {
   label: string;
@@ -76,18 +77,17 @@ const UrlShortener = () => {
     return !errors.name && !errors.website;
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async(e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Add your URL shortening logic here
-      console.log({ name, website, description });
-      setIsLoading(true)
+      setIsLoading(true);
+
       try {
-      
-       
-        setIsLoading(false)
+        const response = await shortenURLs(name, website, description);
+        console.log(response)
+        setIsLoading(false);
       } catch (err) {
-        setIsLoading(false)
+        setIsLoading(false);
         if (err instanceof Error) {
           toast.error(err.message);
         } else {

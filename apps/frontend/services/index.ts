@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { LoginResponse } from './types';
+import { LoginResponse, UrlResponse } from './types';
+import { toast } from 'react-toastify';
+
+
+export const logout = () => {
+  localStorage.removeItem('token');
+  window.location.href = '/';
+};
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3333', // https://url-shortener-959j.onrender.com
@@ -8,16 +15,7 @@ const axiosInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    // You can add common headers here, like Authorization tokens
-    // config.headers.Authorization = `Bearer ${yourAuthToken}`;
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+
 
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -37,7 +35,16 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   (error) => {
-    // Handle errors globally
+    if (
+      error.response &&
+      error.response.status === 401 &&
+      error.response.data &&
+      error.response.data.errors &&
+      error.response.data.errors[0] &&
+      error.response.data.errors[0].message === 'Unauthorized access'
+    ) {
+      logout();
+    }
     return Promise.reject(error);
   }
 );
@@ -58,6 +65,19 @@ export const login = async (email: string, password: string) => {
 export const signUp = async (email: string, password: string) => {
   try {
     const response = await axiosInstance.post<LoginResponse>('/register', { email, password });
+    return response.data;
+  } catch (err) {
+    //@ts-ignore
+    if (err.response && err.response.data && err.response.data.errors && err.response.data.errors.length > 0) {
+     //@ts-ignore
+      throw new Error(err.response.data.errors[0].message);
+    }
+  }
+};
+
+export const shortenURLs = async (name: string, website: string, description: string) => {
+  try {
+    const response = await axiosInstance.post<UrlResponse>('/url', {name, website, description});
     return response.data;
   } catch (err) {
     //@ts-ignore

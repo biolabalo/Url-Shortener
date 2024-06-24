@@ -9,6 +9,7 @@
 
 import router from '@adonisjs/core/services/router'
 const UsersController = () => import('#controllers/users_controller')
+const  UrlShortenersController   = () => import('#controllers/url_shorteners_controller')
 import { middleware } from './kernel.js'
 
 router.get('/', async () => {
@@ -21,4 +22,6 @@ router.post('/register', [ UsersController, 'register']).as('auth.register')
 router.post('/login', [ UsersController, 'login']).as('auth.login')
 router.delete('/logout', [ UsersController, 'logout']).as('auth.logout').use(middleware.auth())
 router.get('/me', [ UsersController, 'me']).as('auth.me')
+router.post('/url', [ UrlShortenersController, 'shorten']).as('url.shorten').use(middleware.auth())
+router.get('/url', [ UrlShortenersController, 'get']).as('url.get').use(middleware.auth())
 // router.get('/:shortUrl', 'UrlController.redirect')
