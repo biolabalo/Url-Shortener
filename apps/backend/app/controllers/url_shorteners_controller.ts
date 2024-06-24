@@ -6,8 +6,6 @@ export default class UrlShortenersController {
         const data = request.only(['name', 'description', 'website'])
         const user = await auth.authenticate()
 
-        console.log( user?.id )
-    
         try {
           const url = await Url.create({ ...data, userId: user.id })
           return response.created(url)
@@ -25,12 +23,4 @@ export default class UrlShortenersController {
         }
       }
 
-      async get({ request, response }: HttpContext) {
-        try {
-   
-          return response.ok({name : 'biols'})
-        } catch (error) {
-          return response.notFound('URL not found')
-        }
-      }
 }
