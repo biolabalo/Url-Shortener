@@ -79,6 +79,7 @@ const UrlShortener = () => {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    if(isLoading) return
     if (validateForm()) {
       setIsLoading(true);
 
@@ -142,9 +143,10 @@ const UrlShortener = () => {
           />
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full bg-[#3976E8] text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
           >
-            Shorten URL
+           {isLoading ? 'Loading' : 'Shorten URL' }  
           </button>
         </form>
       </div>
