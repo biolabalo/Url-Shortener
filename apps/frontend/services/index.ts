@@ -7,7 +7,7 @@ export const logout = () => {
 };
 
 const axiosInstance = axios.create({
-  baseURL: 'https://url-shortener-959j.onrender.com', // https://url-shortener-959j.onrender.com
+  baseURL: 'http://localhost:3333', // https://url-shortener-959j.onrender.com
   headers: {
     'Content-Type': 'application/json',
   },
@@ -84,9 +84,9 @@ export const shortenURLs = async (name: string, website: string, description: st
   }
 };
 
-export const retrieveURLs = async () => {
+export const retrieveURLs = async (page = 1, limit = 10) => {
   try {
-    const response = await axiosInstance.get<UrlResponse[]>('/urls');
+    const response = await axiosInstance.get('/url', { params: { page, limit } });
     return response.data;
   } catch (err) {
     //@ts-ignore

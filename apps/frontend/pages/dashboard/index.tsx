@@ -7,39 +7,55 @@ import { toast } from "react-toastify";
 
 
 export default function Dashboard() {
+  const [urls, setUrls] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  useEffect(() => {
-    const fetchUrls = async () => {
-      try {
-        const response = await retrieveURLs();
-        console.log(response);
-        setIsLoading(false);
-        // Handle the response data as needed
-      } catch (err) {
-        setIsLoading(false);
-        if (err instanceof Error) {
-          toast.error(err.message);
-        } else {
-          toast.error("An unknown error occurred");
-        }
+  const [meta, setMeta] = useState({
+    total: 0,
+    perPage: 10,
+    currentPage: 1,
+    lastPage: 1,
+    firstPage: 1,
+    firstPageUrl: "",
+    lastPageUrl: "",
+    nextPageUrl: null,
+    previousPageUrl: null,
+  });
+
+  const fetchUrls = async (page: number) => {
+    setIsLoading(true);
+    try {
+      const response = await retrieveURLs(page, meta.perPage);
+      setUrls(response?.data);
+      setMeta(response?.meta);
+      setIsLoading(false);
+    } catch (err) {
+      setIsLoading(false);
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error("An unknown error occurred");
       }
-    };
+    }
+  };
 
-    fetchUrls();
-  }, []);
+  useEffect(() => {
+    fetchUrls(meta.currentPage);
+  }, [meta.currentPage]);
+
+  const handlePageChange = (page: number) => {
+    setMeta((prevMeta) => ({ ...prevMeta, currentPage: page }));
+  };
+
   return (
-    <>
-      <div className="min-h-full">
-        <NavBar />
-
-        <main className="bg-white">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <UrlShortener />
-          
-            <URLTable />
-          </div>
-        </main>
-      </div>
-    </>
+    <div className="min-h-full">
+      <NavBar />
+      <main className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <UrlShortener />
+          {/* @ts-ignore */}
+          <URLTable data={urls} meta={meta} onPageChange={handlePageChange} />
+        </div>
+      </main>
+    </div>
   );
 }

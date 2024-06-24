@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { LinkIcon } from "@heroicons/react/24/outline";
-
-interface RowData {
-  name: string;
-  description: string;
-  shortenedURL: string;
+import { RowData, MetaData } from '../../services/types'
+interface URLTableProps {
+  data: RowData[];
+  meta: MetaData;
+  onPageChange: (page: number) => void;
 }
 
 interface RowProps {
@@ -29,24 +29,16 @@ const Thead: React.FC<RowProps> = ({ value }) => (
   </div>
 );
 
-const data: RowData[] = Array(100).fill({
-  name: "John Doe",
-  description: "Lorem",
-  shortenedURL: "https://example.com",
-});
+interface URLTableProps {
+  data: RowData[];
+  currentPage: number;
+  rowsPerPage: number;
+  onPageChange: (page: number) => void;
+}
 
-const URLTable: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 10;
-  const totalPages = Math.ceil(data.length / rowsPerPage);
-
+const URLTable: React.FC<URLTableProps> = ({ data, meta, onPageChange }) => {
   const handleClick = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const getCurrentPageData = () => {
-    const startIndex = (currentPage - 1) * rowsPerPage;
-    return data.slice(startIndex, startIndex + rowsPerPage);
+    onPageChange(page);
   };
 
   return (
@@ -58,18 +50,19 @@ const URLTable: React.FC = () => {
           <Thead value="Shortened URL" />
           <Thead value=" " />
         </div>
-        {getCurrentPageData().map((row, index) => (
-          <div key={index} className="flex border-t py-2">
+
+        {data.map((row) => (
+          <div key={row.id} className="flex border-t py-2">
             <Row value={row.name} customColor="p" />
             <Row value={row.description} />
             <div className="flex-1 py-2 px-4 text-center">
               <a
-                href={row.shortenedURL}
+                href={row.website}
                 className="  text-[14px] font-normal text-[#667085] underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {row.shortenedURL}
+                {row.website}
               </a>
             </div>
 
@@ -87,17 +80,17 @@ const URLTable: React.FC = () => {
       <div className="flex justify-between items-center py-3">
         <button
           className="px-4 py-2 bg-gray-200 rounded"
-          onClick={() => handleClick(currentPage - 1)}
-          disabled={currentPage === 1}
+          onClick={() => handleClick(meta.currentPage - 1)}
+          disabled={meta.currentPage === 1}
         >
           Previous
         </button>
         <div>
-          {Array.from({ length: totalPages }, (_, index) => (
+          {Array.from({ length: meta.lastPage }, (_, index) => (
             <button
               key={index}
               className={`px-4 py-2 ${
-                currentPage === index + 1
+                meta.currentPage === index + 1
                   ? "bg-blue-500 text-white"
                   : "bg-gray-200"
               } rounded`}
@@ -109,8 +102,8 @@ const URLTable: React.FC = () => {
         </div>
         <button
           className="px-4 py-2 bg-gray-200 rounded"
-          onClick={() => handleClick(currentPage + 1)}
-          disabled={currentPage === totalPages}
+          onClick={() => handleClick(meta.currentPage + 1)}
+          disabled={meta.currentPage === meta.lastPage}
         >
           Next
         </button>

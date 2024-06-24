@@ -16,12 +16,30 @@ export interface ErrorResponse {
   statusCode: number;
 }
 
-export interface UrlResponse {
-  createdAt: string;
-  description: null | string;
+export interface RowData {
   id: number;
-  name: string;
   shortId: string;
-  updatedAt: string;
+  userId: number;
+  name: string;
+  description: string;
   website: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface MetaData {
+  total: number;
+  perPage: number;
+  currentPage: number;
+  lastPage: number;
+  firstPage: number;
+  firstPageUrl: string;
+  lastPageUrl: string;
+  nextPageUrl: string | null;
+  previousPageUrl: string | null;
+}
+
+export interface UrlResponse {
+  data: RowData[];
+  meta: MetaData;
 }
