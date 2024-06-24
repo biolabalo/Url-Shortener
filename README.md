@@ -27,7 +27,6 @@ Your task is to create a full stack URL shortener similar to bitly.com using Rea
 2. Provide a link to the web page.
 3. Link to the git/bitbucket repo for the assessment.
 4. Include a README file with instructions on how to run the application locally.
-5. Send all the above to engineering@squareme.app, and copy recruitment@squareme.app.
 
 ### Additional Information
 
@@ -35,8 +34,8 @@ Your task is to create a full stack URL shortener similar to bitly.com using Rea
 - Monorepo setup using Turbo Repo
 - Frontend stack: Next.js, TypeScript, Tailwind CSS, Axios
 - Backend stack: AdonisJs, PostgreSQL
-- Frontend deployed to Vercel: [Frontend URL](#)
-- Backend deployed to Render.com: [Backend URL](https://url-shortener-959j.onrender.com)
+- Frontend deployed to Vercel: [Click Here](#)
+- Backend deployed to Render.com: [Click Here](https://url-shortener-959j.onrender.com)
 - Postgres deployed to superbase 
 ### Features
 
@@ -53,7 +52,7 @@ Your task is to create a full stack URL shortener similar to bitly.com using Rea
 
 - Node.js v20 or higher
 - PostgreSQL
-- Yarn (preferred package manager for Turbo Repo)
+- Yarn or NPM (preferred package manager for Turbo Repo)
 
 ### Installation
 
