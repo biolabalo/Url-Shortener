@@ -23,5 +23,6 @@ router.post('/login', [ UsersController, 'login']).as('auth.login')
 router.delete('/logout', [ UsersController, 'logout']).as('auth.logout').use(middleware.auth())
 router.get('/me', [ UsersController, 'me']).as('auth.me')
 router.post('/url', [ UrlShortenersController, 'shorten']).as('url.shorten').use(middleware.auth())
+router.get('/url', [ UrlShortenersController, 'fetchAll']).as('url.retrieve').use(middleware.auth())
 
 // router.get('/:shortUrl', 'UrlController.redirect')
