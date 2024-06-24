@@ -84,7 +84,17 @@ const UrlShortener = () => {
 
       try {
         const response = await shortenURLs(name, website, description);
-        console.log(response)
+       toast.success('URL created')
+    //    {
+    //     "name": "Squareme",
+    //     "description": "Construction",
+    //     "website": "www.squareme.app",
+    //     "userId": 3,
+    //     "shortId": "9smu97",
+    //     "createdAt": "2024-06-24T11:33:37.638+00:00",
+    //     "updatedAt": "2024-06-24T11:33:37.638+00:00",
+    //     "id": 1
+    // }
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);
