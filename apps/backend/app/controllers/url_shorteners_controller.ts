@@ -39,4 +39,13 @@ export default class UrlShortenersController {
       return response.unauthorized('You must be logged in to view URLs')
     }
   }
+
+  async redirect({ params, response }: HttpContext) {
+    try {
+      const url = await Url.findByOrFail('short_id', params.shortcode)
+      return response.redirect(url.website)
+    } catch (error) {
+      return response.notFound('URL not found')
+    }
+  }
 }
