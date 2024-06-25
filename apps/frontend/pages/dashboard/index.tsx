@@ -51,7 +51,7 @@ export default function Dashboard() {
       <main className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
           <UrlShortener onNewUrlCreated={handleNewUrlCreated} />
-          {isLoading ? (
+          {isLoading && urls.length === 0 ? (
             <p className="text-center text-gray-500">Loading URLs...</p>
           ) : urls.length === 0 ? (
             <p className="text-center text-gray-500">No URLs found. Create one using the URL shortener above.</p>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { LinkIcon } from "@heroicons/react/24/outline";
 import { RowData, MetaData } from '../../services/types'
+import useHostnameWithProtocol from '../../hooks'
+
 
 interface URLTableProps {
   data: RowData[];
@@ -33,6 +35,8 @@ const Thead: React.FC<RowProps> = ({ value }) => (
 
 
 const URLTable: React.FC<URLTableProps> = ({ data, meta, onPageChange }) => {
+  const hostnameWithProtocol = useHostnameWithProtocol();
+
   const handleClick = (page: number) => {
     onPageChange(page);
   };
@@ -53,12 +57,12 @@ const URLTable: React.FC<URLTableProps> = ({ data, meta, onPageChange }) => {
             <Row value={row.description} />
             <div className="flex-1 py-2 px-4 text-center">
               <a
-                href={row.website}
+               href={`${hostnameWithProtocol}/${row.shortId}`}
                 className="  text-[14px] font-normal text-[#667085] underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {row.website}
+                {window.location.hostname}/{row.shortId}
               </a>
             </div>
 
