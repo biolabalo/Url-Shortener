@@ -1,8 +1,10 @@
-import UrlShortener from "../../components/Dashboard";
-import URLTable from "../../components/Dashboard/table";
-import NavBar from "../../components/Dashboard/navbar";
+'use client'
+
+import UrlShortener from "../../../components/Dashboard";
+import URLTable from "../../../components/Dashboard/table";
+import NavBar from "../../../components/Dashboard/navbar";
 import React, { useState, useEffect } from "react";
-import { retrieveURLs } from "../../services";
+import { retrieveURLs } from "../../../services";
 import { toast } from "react-toastify";
 
 export default function Dashboard() {
@@ -34,15 +36,15 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    fetchUrls(meta.currentPage);
-  }, [meta.currentPage]);
+    fetchUrls(meta?.currentPage);
+  }, [meta?.currentPage]);
 
   const handlePageChange = (page: number) => {
     setMeta((prevMeta) => ({ ...prevMeta, currentPage: page }));
   };
 
   const handleNewUrlCreated = () => {
-    fetchUrls(meta.currentPage);
+    fetchUrls(meta?.currentPage);
   };
 
   return (
@@ -53,7 +55,7 @@ export default function Dashboard() {
           <UrlShortener onNewUrlCreated={handleNewUrlCreated} />
           {isLoading && urls.length === 0 ? (
             <p className="text-center text-gray-500">Loading URLs...</p>
-          ) : urls.length === 0 ? (
+          ) : urls?.length === 0 ? (
             <p className="text-center text-gray-500">No URLs found. Create one using the URL shortener above.</p>
           ) : (
             <URLTable data={urls} meta={meta} onPageChange={handlePageChange} />

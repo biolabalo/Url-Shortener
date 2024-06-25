@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import AuthForm from "../components/AuthForm";
 import { login, signUp } from "../services";
@@ -20,7 +21,7 @@ export default function Home() {
         localStorage.setItem('token', token); 
         axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set default headers for future requests
         toast.success(isSignUp ? 'Sign up successful' : 'Login Successful');
-       await router.push('/dashboard'); 
+       await router.push('urls/dashboard'); 
       }
       setIsLoading(false)
     } catch (err) {

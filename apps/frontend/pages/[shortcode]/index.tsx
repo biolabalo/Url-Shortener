@@ -6,21 +6,20 @@ const RedirectPage = () => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    //@ts-ignore
-    const { shortcode } = context.params;
+  //@ts-ignore
+  const { shortcode } = context.params;
 
   try {
     const response = await axios.get(`https://url-shortener-959j.onrender.com/url/${shortcode}`);
-    const { website } = response.data;
-
-    // Redirect to the actual website
+  
     return {
       redirect: {
-        destination: website,
-        permanent: false,
+        destination: response.data,
+        permanent: true
       },
     };
   } catch (error) {
+    console.log('there is an error')
     // Handle the error (e.g., URL not found)
     return {
       notFound: true,

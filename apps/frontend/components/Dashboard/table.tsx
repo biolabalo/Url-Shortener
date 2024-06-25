@@ -51,7 +51,7 @@ const URLTable: React.FC<URLTableProps> = ({ data, meta, onPageChange }) => {
           <Thead value=" " />
         </div>
 
-        {data.map((row) => (
+        {data && data?.map((row) => (
           <div key={row.id} className="flex border-t py-2">
             <Row value={row.name} customColor="p" />
             <Row value={row.description} />
@@ -81,12 +81,12 @@ const URLTable: React.FC<URLTableProps> = ({ data, meta, onPageChange }) => {
         <button
           className="px-4 py-2 bg-gray-200 rounded"
           onClick={() => handleClick(meta.currentPage - 1)}
-          disabled={meta.currentPage === 1}
+          disabled={meta?.currentPage === 1}
         >
           Previous
         </button>
         <div>
-          {Array.from({ length: meta.lastPage }, (_, index) => (
+          {Array.from({ length: meta?.lastPage }, (_, index) => (
             <button
               key={index}
               className={`px-4 py-2 ${
@@ -102,8 +102,8 @@ const URLTable: React.FC<URLTableProps> = ({ data, meta, onPageChange }) => {
         </div>
         <button
           className="px-4 py-2 bg-gray-200 rounded"
-          onClick={() => handleClick(meta.currentPage + 1)}
-          disabled={meta.currentPage === meta.lastPage}
+          onClick={() => handleClick(meta?.currentPage + 1)}
+          disabled={meta?.currentPage === meta?.lastPage}
         >
           Next
         </button>
