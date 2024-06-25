@@ -4,10 +4,12 @@ import { useEffect } from "react";
 
 const RedirectPage = ({ website }: { website: string }) => {
  // This component does not need to render anything
+ console.log(website)
   useEffect(() => {
     //@ts-ignore
     window.location = website;
   }, []);
+
   return <p>redirecting......</p>
 };
 
