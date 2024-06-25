@@ -3,11 +3,12 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const RedirectPage = ({ website }: { website: string }) => {
-  return <p>redirecting......</p>// This component does not need to render anything
+ // This component does not need to render anything
   useEffect(() => {
     //@ts-ignore
     window.location = website;
   }, []);
+  return <p>redirecting......</p>
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
