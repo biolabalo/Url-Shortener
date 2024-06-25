@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 import { retrieveURLs } from "../../services";
 import { toast } from "react-toastify";
 
-
 export default function Dashboard() {
   const [urls, setUrls] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -27,14 +26,10 @@ export default function Dashboard() {
       const response = await retrieveURLs(page, meta.perPage);
       setUrls(response?.data);
       setMeta(response?.meta);
-      setIsLoading(false);
     } catch (err) {
+      console.error(err); // Handle errors in a more informative way (e.g., toast notification)
+    } finally {
       setIsLoading(false);
-      if (err instanceof Error) {
-        toast.error(err.message);
-      } else {
-        toast.error("An unknown error occurred");
-      }
     }
   };
 
@@ -46,14 +41,23 @@ export default function Dashboard() {
     setMeta((prevMeta) => ({ ...prevMeta, currentPage: page }));
   };
 
+  const handleNewUrlCreated = () => {
+    fetchUrls(meta.currentPage);
+  };
+
   return (
     <div className="min-h-full">
       <NavBar />
       <main className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <UrlShortener />
-          {/* @ts-ignore */}
-          <URLTable data={urls} meta={meta} onPageChange={handlePageChange} />
+          <UrlShortener onNewUrlCreated={handleNewUrlCreated} />
+          {isLoading ? (
+            <p className="text-center text-gray-500">Loading URLs...</p>
+          ) : urls.length === 0 ? (
+            <p className="text-center text-gray-500">No URLs found. Create one using the URL shortener above.</p>
+          ) : (
+            <URLTable data={urls} meta={meta} onPageChange={handlePageChange} />
+          )}
         </div>
       </main>
     </div>

@@ -50,12 +50,23 @@ const InputField: React.FC<InputFieldProps> = ({
   </div>
 );
 
-const UrlShortener = () => {
+interface UrlShortenerProps {
+  onNewUrlCreated: () => void;
+}
+
+const UrlShortener: React.FC<UrlShortenerProps> = ({ onNewUrlCreated }) => {
   const [name, setName] = useState("");
   const [website, setWebsite] = useState("");
   const [description, setDescription] = useState("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errors, setErrors] = useState<{ name?: string; website?: string }>({});
+
+  const resetForm = () => {
+    setName("");
+    setWebsite("");
+    setDescription("");
+    setErrors({});
+  };
 
   const validateName = () => {
     const nameError = !name ? "Name is required." : "";
@@ -79,23 +90,14 @@ const UrlShortener = () => {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    if(isLoading) return
     if (validateForm()) {
       setIsLoading(true);
 
       try {
-        const response = await shortenURLs(name, website, description);
-       toast.success('URL created')
-    //    {
-    //     "name": "Squareme",
-    //     "description": "Construction",
-    //     "website": "www.squareme.app",
-    //     "userId": 3,
-    //     "shortId": "9smu97",
-    //     "createdAt": "2024-06-24T11:33:37.638+00:00",
-    //     "updatedAt": "2024-06-24T11:33:37.638+00:00",
-    //     "id": 1
-    // }
+         await shortenURLs(name, website, description);
+        resetForm()
+        onNewUrlCreated();
+        toast.success('URL created')
         setIsLoading(false);
       } catch (err) {
         setIsLoading(false);

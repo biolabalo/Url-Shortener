@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { LinkIcon } from "@heroicons/react/24/outline";
 import { RowData, MetaData } from '../../services/types'
+
 interface URLTableProps {
   data: RowData[];
   meta: MetaData;
@@ -29,12 +30,7 @@ const Thead: React.FC<RowProps> = ({ value }) => (
   </div>
 );
 
-interface URLTableProps {
-  data: RowData[];
-  currentPage: number;
-  rowsPerPage: number;
-  onPageChange: (page: number) => void;
-}
+
 
 const URLTable: React.FC<URLTableProps> = ({ data, meta, onPageChange }) => {
   const handleClick = (page: number) => {
