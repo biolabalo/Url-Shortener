@@ -41,10 +41,22 @@ export default class UrlShortenersController {
   }
 
   async redirect({ params, response }: HttpContext) {
-    try {
-      const url = await Url.findByOrFail('short_id', params.shortcode)
-      return response.redirect(url.website)
+    try { 
+      const url = await Url.query()
+      .where('shortId', params.shortcode)
+
+      console.log(url[0]?.website)
+      
+      if(url.length){
+        return response.ok(url[0]?.website)
+      } else{
+    
+        return response.notFound('URL not found')
+      }
+
+    
     } catch (error) {
+      console.log(1)
       return response.notFound('URL not found')
     }
   }
